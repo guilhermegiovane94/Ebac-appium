@@ -31,16 +31,16 @@ export const config = {
         {
             platformName: 'Android',
             'appium:app': 'storage:filename=ebacshop.aab', // The filename of the mobile app
-            'appium:deviceName': 'Samsung.*',
+            'appium:deviceName': 'Android GoogleAPI Emulator',
             'appium:platformVersion': '12.0',
             'appium:automationName': 'UiAutomator2',
+            'appium:disableIdLocatorAutocompletion': true,
             'sauce:options': {
                build: 'appium-build-teste-ebacshop',
                name: 'Ebac Shop Teste',
                deviceOrientation: 'PORTRAIT',
                appiumVersion: '2.0.0'
-             },
-             'appium:disableIdLocatorAutocompletion': true
+             }
            }
 ],
 
@@ -63,7 +63,7 @@ export const config = {
     },
     afterTest: async function(test, context, { error, result, duration, passed, retries }) {
        // if (error) {
-            await browser.takeScreenshot();
+            await driver.takeScreenshot();
        //}
     }
 
