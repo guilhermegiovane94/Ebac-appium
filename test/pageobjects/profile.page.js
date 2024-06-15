@@ -1,9 +1,12 @@
 import { $ } from '@wdio/globals'
 
-class ProfilePage extends Page {
-    async profileName (name){
-        return await $(`//android.widget.TextView[@text="${name}"]`)
-    }
+/**
+ * sub page containing specific selectors and methods for a specific page
+ */
+class ProfilePage {
+   async profileName(name){
+      return await $(`//android.widget.textView[@text="${name}"`)
+   }
 }
 
 export default new ProfilePage();

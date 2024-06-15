@@ -1,10 +1,13 @@
 import { $ } from '@wdio/globals'
 
-class HomePage extends Page {
-    async openMenu(menu){
-        await $(`id:tab-${menu}`).click()
-        }
-
+/**
+ * sub page containing specific selectors and methods for a specific page
+ */
+class HomePage  {
+    get openMenu(){
+        return $('id:tab-profile')
+    }
+    
 }
 
 export default new HomePage();

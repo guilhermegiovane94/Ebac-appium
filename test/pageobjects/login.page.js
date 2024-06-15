@@ -1,25 +1,30 @@
 import { $ } from '@wdio/globals'
 
-class LoginPage extends Page {
-    //id
-    get email() {
-        return $('id:email')
-    }
-    //text
-    get password() {
-        return $('android=new Uiselector().text("password")')
-    }
-    //acessibility id
-    get btnLogin() {
-        return $('~Login')
-    }
+/**
+ * sub page containing specific selectors and methods for a specific page
+ */
+class LoginPage {
+   get email(){
+    return $('id:email')
+   }
 
-    async Login(email, password) {
-        (await this.email).setValue(email)
-        (await this.password).setValue(password)
-        (await this.btnLogin).click()
+   get password(){
+    return $('android=new UiSelector().text("Password")')
+   }
 
-    }
+   get btnLogin(){
+    return $('~Login')
+   } 
+
+   async btnCadastro(){
+    (await $('//android.widget.TextView[@text="Sign up"]')).click()
+   }
+
+   async login (email, password){
+    (await this.email).setValue(email)
+    (await this.password).setValue(password)
+    (await this.btnLogin).click()
+   }
 }
 
 export default new LoginPage();
