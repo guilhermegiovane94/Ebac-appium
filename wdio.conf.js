@@ -4,12 +4,8 @@ export const config = {
     // Runner Configuration
     // ====================
     // WebdriverIO supports running e2e tests as well as unit and component tests.
-    user: 'guilhermegiovane94',
-    key: 'fa509541-2d49-4ab7-88e7-b0bde10f05ab',
-    hostname: 'ondemand.us-west-1.saucelabs.com',
-    port: 443,
-    baseUrl: 'wd/hub',
-
+    runner: 'local',
+    port: 4723,
     //
     // ==================
     // Specify Test Files
@@ -54,23 +50,20 @@ export const config = {
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
     // https://saucelabs.com/platform/platform-configurator
     //
-    capabilities: [
-        {
-            platformName: 'Android',
-            'appium:app': 'storage:filename=ebacshop.aab', // The filename of the mobile app
-            'appium:deviceName': 'Android GoogleAPI Emulator',
-            'appium:platformVersion': '12.0',
-            'appium:automationName': 'UiAutomator2',
-            'sauce:options': {
-               build: 'appium-build-teste-ebacshop',
-               name: 'Ebac Shop Test',
-               deviceOrientation: 'PORTRAIT',
-               appiumVersion: '2.0.0'
-             },
-             'appium:disableIdLocatorAutocompletion': true,
-
-        }
-    ],
+    capabilities: [{
+        // capabilities for local Appium web tests on an Android Emulator
+        platformName: 'Android',
+        'appium:deviceName': 'Ebac',
+        'appium:platformVersion': '12.0',
+        'appium:automationName': 'UiAutomator2',
+        'sauce:options': {
+            build: 'appium-build-teste-ebacshop',
+            name: 'Ebac Shop Test',
+            deviceOrientation: 'PORTRAIT',
+            appiumVersion: '2.0.0'
+        },
+        'appium:disableIdLocatorAutocompletion': true,
+    }],
 
     //
     // ===================
@@ -150,13 +143,24 @@ export const config = {
         ui: 'bdd',
         timeout: 60000
     },
+    beforeSession: function (config, capabilities, specs, cid) {
+        browser.addCommand('openApp', async () => {
+            await browser.url('../app/ebacshop.apks');
+        });
+        // Garantindo que o browser está disponível
+        if (!browser) {
+            throw new Error('O objeto `browser` não foi inicializado corretamente.');
+        }
+    },
 
     afterTest: async function (test, context, { error, result, duration, passed, retries }) {
         if (error) {
             await browser.takeScreenshot();
         }
+    },
 
-    }
+
+
     //
     // =====
     // Hooks
@@ -200,8 +204,7 @@ export const config = {
      * @param {Array.<String>} specs List of spec file paths that are to be run
      * @param {string} cid worker id (e.g. 0-0)
      */
-    // beforeSession: function (config, capabilities, specs, cid) {
-    // },
+
     /**
      * Gets executed before test execution begins. At this point you can access to all global
      * variables like `browser`. It is the perfect place to define custom commands.
@@ -251,8 +254,7 @@ export const config = {
      * @param {boolean} result.passed    true if test has passed, otherwise false
      * @param {object}  result.retries   information about spec related retries, e.g. `{ attempts: 0, limit: 0 }`
      */
-    // afterTest: function(test, context, { error, result, duration, passed, retries }) {
-    // },
+
 
 
     /**
