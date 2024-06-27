@@ -1,9 +1,6 @@
 import { $ } from '@wdio/globals'
 
-/**
- * sub page containing specific selectors and methods for a specific page
- */
-class ProfilePage {
+class CadastroPage {
    get firtName (){
       return $('id:firstName')
    }
@@ -38,4 +35,4 @@ class ProfilePage {
    }
 }
 
-export default new ProfilePage();
+export default new CadastroPage();

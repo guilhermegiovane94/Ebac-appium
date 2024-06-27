@@ -1,7 +1,6 @@
-import { expect,browser,driver } from '@wdio/globals'
+import { driver } from '@wdio/globals'
 import homePage from '../pageobjects/home.page'
 import loginPage from '../pageobjects/login.page'
-import profilePage from '../pageobjects/profile.page'
 import cadastroPage from '../pageobjects/cadastro.page'
 
 describe('My Login application', () => {

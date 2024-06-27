@@ -1,8 +1,23 @@
 import { $ } from '@wdio/globals'
-import Page from './page.js';
 
 class LoginPage  {
-
+    get email(){
+        return $('id:email')
+       }
+       get password(){
+        return $('android=new UiSelector().text("Password")')
+       }
+       get btnLogin(){
+        return $('~Login')
+       } 
+       async btnCadastro(){
+        (await $('//android.widget.TextView[@text="Sign up"]')).click()
+       }
+       async login (email, password){
+        (await this.email).setValue(email)
+        (await this.password).setValue(password)
+        (await this.btnLogin).click()
+       }
 }
 
 export default new LoginPage();
