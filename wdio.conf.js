@@ -1,4 +1,4 @@
-import { browser } from '@wdio/globals'
+const { browser } = require('@wdio/globals');
 
 export const config = {
     //
